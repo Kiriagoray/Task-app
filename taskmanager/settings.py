@@ -168,6 +168,6 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 CSRF_TRUSTED_ORIGINS = [
-    'task-app-production-16a2.up.railway.app',
+    'https://task-app-production-16a2.up.railway.app',
 
 ]
