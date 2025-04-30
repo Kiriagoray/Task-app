@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Edit Task: {{ task.title }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Task Title -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Task Title</label>
+            {{ form.title }}  <!-- Ensure this is editable -->
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            {{ form.description }}  <!-- Ensure this is editable -->
+        </div>
+
+        <!-- Due Date -->
+        <div class="mb-3">
+            <label for="due_date" class="form-label">Due Date</label>
+            {{ form.due_date }}  <!-- Editable due date -->
+        </div>
+
+        <!-- Priority -->
+        <div class="mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            {{ form.priority }}  <!-- Editable priority -->
+        </div>
+
+        <!-- Assigned Student -->
+        <div class="mb-3">
+            <label for="student_name" class="form-label">Assigned Student</label>
+            {{ form.student_name }}  <!-- Editable student name -->
+        </div>
+
+        <!-- Completed checkbox (if needed) -->
+        <div class="mb-3">
+            <label for="completed" class="form-label">Completed</label>
+            {{ form.completed }}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mb-3">
+            <button type="submit" class="btn btn-success">Save Changes</button>
+        </div>
+    </form>
+
+    <br>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+{% endblock %}

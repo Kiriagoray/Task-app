@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load socialaccount %}  <!-- Correct tag for django-allauth -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Task Manager{% endblock %}</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Sidebar Styling */
+        .sidebar {
+            background-color: #343a40; /* Darker color for sidebar */
+            padding-top: 30px;
+            min-height: 100vh;
+            color: #f8f9fa; /* Light text color */
+            font-weight: bold;
+        }
+        .sidebar .list-group-item {
+            background-color: transparent;
+            border: none;
+            font-size: 1.2rem; /* Larger font size */
+            padding: 15px 20px;
+            color: #f8f9fa; /* Fully opaque light text color */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        }
+        .sidebar .list-group-item:hover {
+            background-color: #495057; /* Lighter shade on hover */
+            color: #ff9800; /* Orange color for hover */
+            cursor: pointer;
+        }
+        .sidebar .card-body h5 {
+            font-size: 1.5rem; /* Larger header for the sidebar */
+            color: #ff9800; /* Header color */
+        }
+        /* Specific Grey Text for Dashboard and Post Task Links */
+        .sidebar .list-group-item a {
+            color: #868e96; /* Grey color */
+            text-decoration: none;
+        }
+        .sidebar .list-group-item a:hover {
+            color: #ff9800; /* Orange color on hover */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="/">Task Manager</a>
+    <div class="ms-auto">
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-light">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% provider_login_url 'google' %}" class="btn btn-danger btn-outline-light">Continue with Google</a>
+        {% endif %}
+    </div>
+</nav>
+
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar">
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Navigation</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="/" class="text-decoration-none">Dashboard</a></li>
+                            <li class="list-group-item"><a href="{% url 'post_task' %}" class="text-decoration-none">Post Task</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

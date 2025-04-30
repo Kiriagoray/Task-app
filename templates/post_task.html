@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Post Task{% endblock %}
+
+{% block content %}
+    <h2 class="mb-4">Post a New Task</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Task Title</label>
+            <input type="text" name="title" class="form-control" id="title" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="due_date" class="form-label">Due Date</label>
+            <input type="date" name="due_date" class="form-control" id="due_date" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            <select name="priority" class="form-select" id="priority">
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="student_name" class="form-label">Assigned Person </label>
+            <input type="text" name="student_name" class="form-control" id="student_name">
+        </div>
+
+        <button type="submit" class="btn btn-success">Post Task</button>
+    </form>
+{% endblock %}
