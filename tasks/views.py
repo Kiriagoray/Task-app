@@ -155,8 +155,11 @@ def send_task_notification(task):
     subject = f'New Task Assigned: {task.title}'
     message = f'You have been assigned a new task: {task.description}\nDue Date: {task.due_date}'
 
-    # Collect all emails from the assigned team members
-    recipient_emails = [member.email for member in task.assigned_team.members.all() if member.email]
+    recipient_emails = []
+    if task.assigned_team:  # ✅ Prevent AttributeError if no team assigned
+        recipient_emails = [
+            member.email for member in task.assigned_team.members.all() if member.email
+        ]
 
     if recipient_emails:
         send_mail(
@@ -166,6 +169,7 @@ def send_task_notification(task):
             recipient_emails,
             fail_silently=False,
         )
+
 @require_POST
 def logout_view(request):
     logout(request)
