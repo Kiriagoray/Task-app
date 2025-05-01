@@ -22,22 +22,17 @@
     <!-- Task List Section -->
     <div class="row">
         {% for task in tasks %}
-            <div class="col-md-6 mb-3"> <!-- Adjusted column size to 6 (2 tasks per row) -->
-                <div class="card shadow-sm" style="min-height: 300px; border: 1px solid rgba(0, 0, 0, 0.2);">
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm" style="min-height: 300px; border: 1px solid #007bff; background-color: #cce5ff;">
                     <div class="card-body d-flex flex-column">
-                        <!-- Task Title with color and bold -->
                         <h5 class="card-title" style="font-weight: bold; color: #007bff;">{{ task.title }}</h5>
-
-                        <!-- Task Description (limited height) -->
-                        <p class="card-text" style="overflow: hidden; height: 100px; color: #555;">{{ task.description }}</p>
-
-                        <!-- Priority, Due Date, Assigned Team, and Status -->
-                        <p class="card-text">Priority: <span style="font-weight: bold; color: black;">{{ task.priority }}</span></p>
-                        <p class="card-text">Due Date: <span style="font-weight: bold; color: black;">{{ task.due_date }}</span></p>
-                        <p class="card-text">Assigned Team: <span style="font-weight: bold; color: black;">{{ task.assigned_team.name }}</span></p>
+                        <p class="card-text" style="overflow: hidden; height: 100px; color: #333;">{{ task.description }}</p>
+                        <p class="card-text">Priority: <span style="font-weight: bold;">{{ task.priority }}</span></p>
+                        <p class="card-text">Due Date: <span style="font-weight: bold;">{{ task.due_date }}</span></p>
+                        <p class="card-text">Assigned Team: <span style="font-weight: bold;">{{ task.assigned_team.name }}</span></p>
                         <p class="card-text">
                             Status:
-                            <span style="font-weight: bold; color: black;">
+                            <span style="font-weight: bold;">
                                 {% if task.completed %}
                                     Completed
                                 {% else %}
@@ -45,21 +40,12 @@
                                 {% endif %}
                             </span>
                         </p>
-
-                        <!-- Buttons (Styled) -->
-                        <div class="d-flex justify-content-between mt-auto">
-                            <!-- Edit Button -->
-                            <a href="{% url 'edit_task' task.id %}" class="btn btn-outline-warning btn-sm w-100 me-1 mb-1">Edit</a>
-
-                            <!-- Delete Button -->
-                            <a href="{% url 'delete_task' task.id %}" class="btn btn-outline-danger btn-sm w-100 me-1 mb-1">Delete</a>
-
-                            <!-- View Button -->
-                            <a href="{% url 'task_detail' task.id %}" class="btn btn-outline-info btn-sm w-100 me-1 mb-1">View</a>
-
-                            <!-- Complete Button (only if task is incomplete) -->
+                        <div class="d-flex justify-content-between mt-auto flex-wrap">
+                            <a href="{% url 'edit_task' task.id %}" class="btn btn-outline-warning btn-sm me-1 mb-1 flex-grow-1">Edit</a>
+                            <a href="{% url 'delete_task' task.id %}" class="btn btn-outline-danger btn-sm me-1 mb-1 flex-grow-1">Delete</a>
+                            <a href="{% url 'task_detail' task.id %}" class="btn btn-outline-info btn-sm me-1 mb-1 flex-grow-1">View</a>
                             {% if not task.completed %}
-                                <a href="{% url 'complete_task' task.id %}" class="btn btn-outline-success btn-sm w-100 mb-1">Complete</a>
+                                <a href="{% url 'complete_task' task.id %}" class="btn btn-outline-success btn-sm mb-1 flex-grow-1">Complete</a>
                             {% endif %}
                         </div>
                     </div>
